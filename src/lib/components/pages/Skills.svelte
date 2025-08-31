@@ -6,7 +6,9 @@
 	import CardHeader from '../ui/CardHeader.svelte';
 	import CardTitle from '../ui/CardTitle.svelte';
   import { skills } from '$lib/data/skills';
-  import { skillCategories } from '$lib/data/skillCategory';  
+  import { skillCategories } from '$lib/data/skillCategory'; 
+  
+  
   let skillsElement:Element;
   onMount(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -33,14 +35,14 @@
 		</div>
 
 		<div class="grid md:grid-cols-3 gap-8">
-			{#each skillCategories as category, index (category.id)}
+			{#each skillCategories as category (category.id)}
 				<Card className="border-none shadow-sm">
 					<CardHeader>
 						<CardTitle className="text-center">{category.title}</CardTitle>
 					</CardHeader>
 					<CardContent>
 						<div class="flex flex-wrap gap-2 justify-center">
-							{#each skills as skill, id (skill.id)}
+							{#each skills as skill (skill.id)}
                 {#if skill.category == category.title}
                   <Badge 
                     variant="secondary"
