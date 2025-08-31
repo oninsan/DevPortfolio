@@ -3,6 +3,7 @@
 	import Card from '../ui/Card.svelte';
 	import { User, Calendar, MapPin, Mail } from 'lucide-svelte';
 	import profilePic from '$lib/assets/profile.png';
+	import { fade, fly } from 'svelte/transition';
 	
 	let aboutElement: Element;
 	

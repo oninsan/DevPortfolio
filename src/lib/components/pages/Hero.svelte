@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { ChevronDown } from 'lucide-svelte';
   import profilePic from '$lib/assets/profile.png'
+	import { fade, fly } from 'svelte/transition';
 	
 	let heroElement:Element;
 	
@@ -14,8 +15,7 @@
 			});
 		});
 		
-		if (heroElement) observer.observe(heroElement);
-		
+		if (heroElement) observer.observe(heroElement);		
 		return () => observer.disconnect();
 	});
 

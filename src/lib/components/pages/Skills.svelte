@@ -7,6 +7,7 @@
 	import CardTitle from '../ui/CardTitle.svelte';
   import { skills } from '$lib/data/skills';
   import { skillCategories } from '$lib/data/skillCategory'; 
+	import { fade, fly } from 'svelte/transition';
   
   
   let skillsElement:Element;

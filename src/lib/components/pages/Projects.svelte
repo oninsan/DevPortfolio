@@ -4,6 +4,7 @@
 	import Badge from '../ui/Badge.svelte';
 	import { ExternalLink, Github, Eye } from 'lucide-svelte';
   import { projects } from '$lib/data/project';
+	import { fade, fly } from 'svelte/transition';
 	
 	let projectsElement:Element;
 	let activeFilter:string = 'All';

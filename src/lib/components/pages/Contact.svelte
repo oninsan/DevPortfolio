@@ -5,6 +5,7 @@
 	import Label from '../ui/Label.svelte';
 	import Textarea from '../ui/Textarea.svelte';
 	import { Mail, Phone, MapPin, Send, MessageCircle } from 'lucide-svelte';
+	import { fade, fly } from 'svelte/transition';
 	
 	let contactElement:Element;
 	let formData = {
