@@ -12,7 +12,7 @@
 	<meta name="description" content="Professional web developer portfolio showcasing skills, projects, and experience in modern web development." />
 	<meta property="og:title" content="Niño Abao's Portfolio" />
   <meta property="og:description" content="Explore Niño's work in IT education, web development, and design." />
-  <meta property="og:image" content="https://www.niñoabao.online/#home" />
+  <meta property="og:image" content="https://www.niñoabao.online/images/devPortfolio.png" />
   <meta property="og:url" content="https://www.niñoabao.online" />
   <meta property="og:type" content="website" />
 </svelte:head>
