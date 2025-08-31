@@ -25,7 +25,7 @@
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="text-center mb-16">
 			<h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">About Me</h2>
-			<div class="w-24 h-1 bg-primary mx-auto"></div>
+			<div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
 		</div>
 
 		<div class="grid lg:grid-cols-2 gap-12 items-center">
