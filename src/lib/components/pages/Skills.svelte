@@ -28,7 +28,8 @@
 <section id="skills" class="py-20" bind:this={skillsElement}>
 	<div class="container mx-auto px-4">
 		<div class="text-center mb-16">
-			<h2 class="text-3xl md:text-4xl mb-4">Skills & Technologies</h2>
+			<h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Skills & Technologies</h2>
+      <div class="w-24 h-1 bg-primary mx-auto"></div>
 			<p class="text-xl text-muted-foreground max-w-2xl mx-auto">
 				Here are the technologies and tools I work with to bring ideas to life.
 			</p>
