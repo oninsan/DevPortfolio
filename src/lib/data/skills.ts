@@ -129,5 +129,10 @@ export const skills: Array<Skill> = [
 		id: 26,
 		skill: 'Adobe XD',
 		category: 'Tools & Others'
-	}
+	},
+	{
+		id: 27,
+		skill: 'Svelte',
+		category: 'Frontend'
+	},
 ];
