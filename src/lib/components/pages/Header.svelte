@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
   import { Menu, X } from 'lucide-svelte';
 
   let isScrolled = $state(false);
@@ -14,67 +14,53 @@
     { href: '#contact', label: 'Contact' }
   ];
 
-  // Sections cache
-  let sections: { id: string; element: HTMLElement | null }[] = [];
-
-  // For debouncing scroll events
-  let scrollTimeout: number | undefined;
-  const scrollDebounce = 400; // match smooth scroll duration
+  let observer: IntersectionObserver;
 
   onMount(() => {
-    sections = navItems.map(item => ({
-      id: item.href.substring(1),
-      element: document.getElementById(item.href.substring(1))
-    }));
-
+    // Mark header background on scroll
     const handleScroll = () => {
       isScrolled = window.scrollY > 50;
+    };
+    window.addEventListener('scroll', handleScroll);
 
-      // cancel pending update
-      if (scrollTimeout) clearTimeout(scrollTimeout);
-
-      scrollTimeout = window.setTimeout(() => {
-        let scrollPos = window.scrollY + window.innerHeight / 2;
-
-        for (const { id, element } of sections) {
-          if (
-            element &&
-            element.offsetTop <= scrollPos &&
-            element.offsetTop + element.offsetHeight > scrollPos
-          ) {
-            if (window.location.hash.replace('#', '') !== id) {
-              window.location.hash = id;
-            }
-            currentSection = id;
-            break;
-          }
-        }
-      }, scrollDebounce);
+    // Intersection Observer for sections
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.6 // section must be 60% visible
     };
 
-    // Run once on mount
-    handleScroll();
+    observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          currentSection = id;
 
-    window.addEventListener('scroll', handleScroll);
+          if (window.location.hash.replace('#', '') !== id) {
+            history.replaceState(null, '', `#${id}`);
+          }
+        }
+      }
+    }, options);
+
+    // Observe each section
+    navItems.forEach(item => {
+      const el = document.getElementById(item.href.substring(1));
+      if (el) observer.observe(el);
+    });
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
+      if (observer) observer.disconnect();
     };
   });
 
-  function scrollToSection(href: string) {
+  const scrollToSection = (href: string) => {
     const targetId = href.substring(1);
     const element = document.getElementById(targetId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
       isMobileMenuOpen = false;
-
-      // Ensure hash updates when animation finishes
-      setTimeout(() => {
-        if (window.location.hash !== href) {
-          window.location.hash = href;
-        }
-        currentSection = targetId;
-      }, scrollDebounce);
     }
   }
 </script>
@@ -135,8 +121,3 @@
 		{/if}
 	</nav>
 </header>
-<style>
-  html {
-    scroll-behavior: smooth; /* fallback for anchor clicks */
-  }
-</style>

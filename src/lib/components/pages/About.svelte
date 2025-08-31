@@ -1,28 +1,10 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import Card from '../ui/Card.svelte';
 	import { User, Calendar, MapPin, Mail } from 'lucide-svelte';
 	import profilePic from '$lib/assets/profile.png';
-	import { fade, fly } from 'svelte/transition';
-	
-	let aboutElement: Element;
-	
-	onMount(() => {
-		const observer = new IntersectionObserver((entries) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					entry.target.classList.add('animate-slide-up');
-				}
-			});
-		});
-		
-		if (aboutElement) observer.observe(aboutElement);
-		
-		return () => observer.disconnect();
-	});
 </script>
 
-<section id="about" class="py-20 bg-gray-50" bind:this={aboutElement}>
+<section id="about" class="py-20 bg-gray-50">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="text-center mb-16">
 			<h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">About Me</h2>
@@ -105,14 +87,3 @@
 		</div>
 	</div>
 </section>
-
-<style>
-	@keyframes slide-up {
-		from { opacity: 0; transform: translateY(50px); }
-		to { opacity: 1; transform: translateY(0); }
-	}
-	
-	.animate-slide-up {
-		animation: slide-up 0.8s ease-out;
-	}
-</style>

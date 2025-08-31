@@ -1,13 +1,10 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import Card from '../ui/Card.svelte';
 	import Input from '../ui/Input.svelte';
 	import Label from '../ui/Label.svelte';
 	import Textarea from '../ui/Textarea.svelte';
 	import { Mail, Phone, MapPin, Send, MessageCircle } from 'lucide-svelte';
-	import { fade, fly } from 'svelte/transition';
 	
-	let contactElement:Element;
 	let formData = {
 		name: '',
 		email: '',
@@ -15,20 +12,6 @@
 		message: ''
 	};
 	let isSubmitting = false;
-	
-	onMount(() => {
-		const observer = new IntersectionObserver((entries) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					entry.target.classList.add('animate-contact');
-				}
-			});
-		});
-		
-		if (contactElement) observer.observe(contactElement);
-		
-		return () => observer.disconnect();
-	});
 
 	async function handleSubmit(event:Event) {
 		event.preventDefault();
@@ -43,7 +26,7 @@
 	}
 </script>
 
-<section id="contact" class="py-20 bg-white" bind:this={contactElement}>
+<section id="contact" class="py-20 bg-white">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="text-center mb-16">
 			<h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Get In Touch</h2>
@@ -201,20 +184,3 @@
 		</div>
 	</div>
 </section>
-
-<style>
-	@keyframes slide-in {
-		from { 
-			opacity: 0; 
-			transform: translateX(-30px); 
-		}
-		to { 
-			opacity: 1; 
-			transform: translateX(0); 
-		}
-	}
-	
-	.animate-contact {
-		animation: slide-in 0.8s ease-out;
-	}
-</style>

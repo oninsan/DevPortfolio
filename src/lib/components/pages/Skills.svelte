@@ -1,32 +1,16 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
-	import Badge from '../ui/Badge.svelte';
-	import Card from '../ui/Card.svelte';
-	import CardContent from '../ui/CardContent.svelte';
-	import CardHeader from '../ui/CardHeader.svelte';
-	import CardTitle from '../ui/CardTitle.svelte';
-  import { skills } from '$lib/data/skills';
-  import { skillCategories } from '$lib/data/skillCategory'; 
-	import { fade, fly } from 'svelte/transition';
-  
-  
-  let skillsElement:Element;
-  onMount(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // entry.target.classList.add('animate-fade-in');
-				}
-			});
-		});
-		
-		if (skillsElement) observer.observe(skillsElement);
-		
-		return () => observer.disconnect();
-	});
+    import { onMount } from 'svelte';
+    import Badge from '../ui/Badge.svelte';
+    import Card from '../ui/Card.svelte';
+    import CardContent from '../ui/CardContent.svelte';
+    import CardHeader from '../ui/CardHeader.svelte';
+    import CardTitle from '../ui/CardTitle.svelte';
+    import { skills } from '$lib/data/skills';
+    import { skillCategories } from '$lib/data/skillCategory'; 
+    
 </script>
 
-<section id="skills" class="py-20" bind:this={skillsElement}>
+<section id="skills" class="py-20">
 	<div class="container mx-auto px-4">
 		<div class="text-center mb-16">
 			<h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Skills & Technologies</h2>
@@ -61,9 +45,3 @@
 		</div>
 	</div>
 </section>
-
-<style>
-  .animate-fade-in {
-		animation: fade-in 1s ease-out;
-	}
-</style>

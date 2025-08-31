@@ -4,11 +4,8 @@
 	import Badge from '../ui/Badge.svelte';
 	import { ExternalLink, Github, Eye } from 'lucide-svelte';
   import { projects } from '$lib/data/project';
-	import { fade, fly } from 'svelte/transition';
 	
-	let projectsElement:Element;
 	let activeFilter:string = 'All';
-	
 	const filters = ['All', 'React', 'Svelte', 'Full Stack'];
 	
 	
@@ -16,22 +13,9 @@
 		? projects 
 		: projects.filter(project => project.category === activeFilter);
 	
-	onMount(() => {
-		const observer = new IntersectionObserver((entries) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					entry.target.classList.add('animate-projects');
-				}
-			});
-		});
-		
-		if (projectsElement) observer.observe(projectsElement);
-		
-		return () => observer.disconnect();
-	});
 </script>
 
-<section id="projects" class="py-20 bg-gray-50" bind:this={projectsElement}>
+<section id="projects" class="py-20 bg-gray-50">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="text-center mb-16">
 			<h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Featured Projects</h2>
