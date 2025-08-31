@@ -101,11 +101,6 @@ export const skills: Array<Skill> = [
 		category: 'Backend'
 	},
 	{
-		id: 20,
-		skill: 'JQuery',
-		category: 'Backend'
-	},
-	{
 		id: 21,
 		skill: 'Git',
 		category: 'Tools & Others'
