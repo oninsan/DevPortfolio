@@ -65,3 +65,29 @@
 ::-webkit-scrollbar-thumb:hover {
 	background: #ff9800;
 }
+
+/* shimmer effect */
+.skeleton-box {
+	position: relative;
+	overflow: hidden;
+	background-color: #d1d5db;
+	display: block;
+	border-radius: inherit;
+}
+
+.skeleton-box::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	width: 250%;
+	background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+	transform: translateX(-100%);
+	animation: shimmer 1.5s infinite;
+	border-radius: inherit;
+}
+
+@keyframes shimmer {
+	100% {
+		transform: translateX(100%);
+	}
+}
