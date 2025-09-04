@@ -1,24 +1,26 @@
-<div class="skeleton-box"></div>
+<script lang="ts">
+  let _class: string = "";
+  let style: string = "";
+</script>
+
+<div class="skeleton-box {_class}" style={style} {...$$restProps}></div>
 
 <style>
   .skeleton-box {
     position: relative;
     overflow: hidden;
-    background-color: rgba(255, 255, 255, 0.2); 
+    background-color: #e0e0e0;
+    display: block; /* ensures pseudo-element is visible */
   }
 
-  /* The Shimmer Effect */
   .skeleton-box::after {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(255, 255, 255, 0.3), /* A slightly brighter white for the shimmer */
+      rgba(255, 255, 255, 0.4),
       transparent
     );
     transform: translateX(-100%);

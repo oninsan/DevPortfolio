@@ -41,7 +41,7 @@
 			<!-- Profile Image -->
 			<div class="mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-2xl">
         {#if isImageLoading}
-          <Skeleton />
+          <Skeleton _class="w-full h-full rounded-full" />
         {:else}
           <img
             src={profilePic}
@@ -93,10 +93,10 @@
 		</div>
 	</div>
 </section>
-<style>
+<!-- <style>
   .profile-image-container :global(.skeleton-box) {
     width: 100%;
     height: 100%;
-    border-radius: 9999px; /* This makes the skeleton a circle */
+    border-radius: 100%; 
   }
-</style>
+</style> -->
