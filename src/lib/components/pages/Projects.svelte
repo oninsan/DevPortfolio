@@ -76,6 +76,7 @@
     <!-- Projects Grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
       {#each filteredProjects as project, i (`${project.id}-${i}`)}
+      <div in:fly={{ y: 30, duration: 400, delay: i * 50 }}>
         {#if project.isLoading}
           <!-- Skeleton Loader Card -->
           <div class="bg-gray-200 rounded-lg shadow-md p-4 space-y-4">
@@ -92,7 +93,6 @@
           </div>
         {:else}
           <!-- Actual Project Card -->
-          <div in:fly={{ y: 30, duration: 400, delay: i * 50 }}>
             <Card
               className="group h-full flex flex-col overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 project-card"
             >
@@ -165,8 +165,8 @@
                 </div>
               </div>
             </Card>
+            {/if}
           </div>
-        {/if}
       {/each}
     </div>
 
