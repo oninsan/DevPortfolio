@@ -56,7 +56,7 @@
 						</div>
 						<div>
 							<h4 class="font-semibold text-gray-900 mb-1">Email</h4>
-							<p class="text-gray-600">kokoybaldofordawin@example.com</p>
+							<p class="text-gray-600">kokoybaldofordawin@gmail.com</p>
 							<p class="text-sm text-gray-500">I typically respond within 24 hours</p>
 						</div>
 					</div>
