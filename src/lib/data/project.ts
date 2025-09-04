@@ -63,5 +63,16 @@ export const projects: Array<Project> = [
 		category: 'Svelte',
 		liveUrl: '#',
 		githubUrl: 'https://github.com/oninsan/Portfolio'
+	},
+	{
+		id: 6,
+		title: 'Bluewave',
+		description:
+			'A tourist spot finder here in bogo city. One of my very first web applications using a framework.',
+		image: 'images/Bluewave.png',
+		technologies: ['HTML', 'CSS', 'Python', 'Django'],
+		category: 'Django',
+		liveUrl: '#',
+		githubUrl: 'https://github.com/oninsan/3rd-ecom'
 	}
 ];

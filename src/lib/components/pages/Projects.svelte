@@ -6,7 +6,7 @@
 	import { fade, fly } from 'svelte/transition';
 	
 	let activeFilter:string = 'All';
-	const filters = ['All', 'React', 'Svelte', 'Full Stack'];
+	const filters = ['All', 'React', 'Svelte', 'Django', 'Full Stack'];
 	
 	
 	$: filteredProjects = activeFilter === 'All' 
