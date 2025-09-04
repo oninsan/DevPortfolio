@@ -1,10 +1,11 @@
 <script lang="ts">
   import { ChevronDown } from 'lucide-svelte';
   import profilePic from '$lib/assets/profile.png';
-  import Skeleton from '../ui/Skeleton.svelte';
   import { onMount } from 'svelte';
+  // import {Skeleton} from 'svelte-skeleton-loader';
 
   let isImageLoading = $state(true);
+
 
   const scrollToAbout = () => {
     const element = document.getElementById('about');
@@ -52,10 +53,10 @@
     <div class="space-y-8">
       <!-- Profile Image -->
       <div
-        class="mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-2xl"
+        class="profile-image-container mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-2xl"
       >
         {#if isImageLoading}
-          <Skeleton _class="skeleton-box w-full h-full rounded-full" />
+          <div class="skeleton-box w-full h-full"></div>
         {:else}
           <img
             src={profilePic}
@@ -118,33 +119,9 @@
   </div>
 </section>
 <style>
-  /* :global(.skeleton-box) {
-    position: relative;
-    overflow: hidden;
-    background-color: #d1d5db;
-    display: block;
-    border-radius: inherit;
+  .profile-image-container :global(.skeleton-box) {
+    width: 100%;
+    height: 100%;
+    /* border-radius: 100%; */
   }
-
-  :global(.skeleton-box::after) {
-    content: '';
-    position: absolute;
-    inset: 0;
-    width: 250%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.8),
-      transparent
-    );
-    transform: translateX(-100%);
-    animation: shimmer 1.5s infinite;
-    border-radius: inherit;
-  }
-
-  @keyframes shimmer {
-    100% {
-      transform: translateX(100%);
-    }
-  } */
 </style>
