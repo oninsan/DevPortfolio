@@ -1,7 +1,10 @@
 <script lang="ts">
 	import { ChevronDown } from 'lucide-svelte';
   import profilePic from '$lib/assets/profile.png'	
+	import Skeleton from '../ui/Skeleton.svelte';
+	import { onMount } from 'svelte';
 
+  let isImageLoading = $state(true)
 	const scrollToAbout = () => {
 		const element = document.getElementById('about');
 		if (element) {
@@ -16,6 +19,15 @@
 			element.scrollIntoView({ behavior: 'smooth' });
 		}
 	}
+
+  onMount(() => {
+    // Preload the image to check when it's ready
+    const img = new Image();
+    img.src = profilePic;
+    img.onload = () => {
+      isImageLoading = false;
+    };
+  });
 </script>
 
 <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 to-purple-700 text-white relative overflow-hidden">
@@ -28,11 +40,15 @@
 		<div class="space-y-8">
 			<!-- Profile Image -->
 			<div class="mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-2xl">
-				<img 
-					src="{profilePic}" 
-					alt="Profile" 
-					class="w-full h-full object-cover"
-				/>
+        {#if isImageLoading}
+          <Skeleton />
+        {:else}
+          <img
+            src={profilePic}
+            alt="Profile"
+            class="w-full h-full object-cover"
+          />
+        {/if}
 			</div>
 
 			<!-- Main Content -->
@@ -54,14 +70,14 @@
 			<!-- CTA Buttons -->
 			<div class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8">
 				<button 
-					on:click={scrollToAbout}
+					onclick={scrollToAbout}
 					class="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
 				>
 					Learn More About Me
 				</button>
 				
 				<button 
-					on:click={() => scrollToSection('#contact')}
+					onclick={() => scrollToSection('#contact')}
 					class="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300 transform hover:-translate-y-1"
 				>
 					Get In Touch
@@ -71,9 +87,16 @@
 
 		<!-- Scroll Indicator -->
 		<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-			<button on:click={scrollToAbout} class="text-white hover:text-primary transition-colors duration-200">
+			<button onclick={scrollToAbout} class="text-white hover:text-primary transition-colors duration-200">
 				<ChevronDown class="h-8 w-8" />
 			</button>
 		</div>
 	</div>
 </section>
+<style>
+  .profile-image-container :global(.skeleton-box) {
+    width: 100%;
+    height: 100%;
+    border-radius: 9999px; /* This makes the skeleton a circle */
+  }
+</style>
