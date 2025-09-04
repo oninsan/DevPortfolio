@@ -9,35 +9,42 @@
   const filters = ['All', 'React', 'Svelte', 'Django', 'Full Stack'];
 
   let activeFilter: string = $state('All');
-  let initialLoading: boolean = $state(true);
+
+  // Add an `isLoading` state to each project individually
+  let projectData = $state(
+    projects.map(p => ({ ...p, isLoading: true }))
+  );
 
   let filteredProjects = $derived(
     activeFilter === 'All'
-      ? projects
-      : projects.filter((project) => project.category === activeFilter)
+      ? projectData
+      : projectData.filter((project) => project.category === activeFilter)
   );
 
-  // Preload images and manage the initial loading state for the skeleton UI
-  onMount(() => {
-    const imagePromises = projects.map((project) => {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = project.image;
-        img.onload = resolve;
-        img.onerror = reject; // You can also handle errors here
-      });
-    });
+  // Derived state to check if all images have finished their initial load attempt.
+  // This is used to correctly show the "No projects found" message.
+  let allImagesProcessed = $derived(!projectData.some(p => p.isLoading));
 
-    // Wait for all images to be loaded before hiding the skeletons
-    Promise.all(imagePromises)
-      .then(() => {
-        initialLoading = false;
-      })
-      .catch((error) => {
-        console.error("Error loading project images:", error);
-        // Even if images fail, we should hide the loader
-        initialLoading = false; 
-      });
+  // Preload images and manage loading state for each card
+  onMount(() => {
+    projectData.forEach((project) => {
+      const img = new Image();
+      img.src = project.image;
+
+      const finishLoading = () => {
+        // Find the specific project in our reactive state and update it
+        const targetProject = projectData.find(p => p.id === project.id);
+        if (targetProject) {
+          targetProject.isLoading = false;
+        }
+      };
+      
+      img.onload = finishLoading;
+      img.onerror = () => {
+        console.error(`Error loading image for project: ${project.title}`);
+        finishLoading(); // Hide loader even if image fails to load
+      };
+    });
   });
 </script>
 
@@ -66,28 +73,26 @@
       {/each}
     </div>
 
-    <!-- Projects Grid or Skeletons -->
+    <!-- Projects Grid -->
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {#if initialLoading}
-        <!-- Skeleton Loader Grid -->
-        {#each filteredProjects as _}
-          <div class="!bg-gray-200 rounded-lg shadow-md p-4 space-y-4">
-            <div class="skeleton-box !h-48 !w-full"></div>
+      {#each filteredProjects as project, i (`${project.id}-${i}`)}
+        {#if project.isLoading}
+          <!-- Skeleton Loader Card -->
+          <div class="bg-gray-200 rounded-lg shadow-md p-4 space-y-4">
+            <div class="skeleton-box h-48 w-full"></div>
             <div class="space-y-3">
-              <div class="skeleton-box !h-6 !w-3/4"></div>
-              <div class="skeleton-box !h-4 !w-full"></div>
-              <div class="skeleton-box !h-4 !w-5/6"></div>
-              <div class="!flex flex-wrap gap-2 pt-2">
-                <div class="skeleton-box !h-6 !w-16 !rounded-full"></div>
-                <div class="skeleton-box !h-6 !w-20 !rounded-full"></div>
+              <div class="skeleton-box h-6 w-3/4"></div>
+              <div class="skeleton-box h-4 w-full"></div>
+              <div class="skeleton-box h-4 w-5/6"></div>
+              <div class="flex flex-wrap gap-2 pt-2">
+                <div class="skeleton-box h-6 w-16 rounded-full"></div>
+                <div class="skeleton-box h-6 w-20 rounded-full"></div>
               </div>
             </div>
           </div>
-        {/each}
-      {:else}
-        <!-- Actual Projects Grid -->
-        {#each filteredProjects as project, i (`${project.id}-${i}`)}
-          <div in:fly={{ y: 30, duration: 400, delay: i * 100 }}>
+        {:else}
+          <!-- Actual Project Card -->
+          <div in:fly={{ y: 30, duration: 400, delay: i * 50 }}>
             <Card
               className="group h-full flex flex-col overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 project-card"
             >
@@ -161,11 +166,11 @@
               </div>
             </Card>
           </div>
-        {/each}
-      {/if}
+        {/if}
+      {/each}
     </div>
 
-    {#if !initialLoading && filteredProjects.length === 0}
+    {#if allImagesProcessed && filteredProjects.length === 0}
       <div class="text-center py-16" in:fade>
         <p class="text-gray-500 text-lg">No projects found for the selected filter.</p>
       </div>
