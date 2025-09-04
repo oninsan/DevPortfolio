@@ -23,18 +23,18 @@
   };
 
   onMount(() => {
-  const img = new Image();
-  img.src = profilePic;
+    const img = new Image();
+    img.src = profilePic;
 
-  img.onload = () => {
-    isImageLoading = false;
-  };
+    img.onload = () => {
+      isImageLoading = false;
+    };
 
-  img.onerror = () => {
-    console.error('Profile picture failed to load.');
-    isImageLoading = false; // Still hide the skeleton and show the broken image icon
-  };
-});
+    img.onerror = () => {
+      console.error('Profile picture failed to load.');
+      isImageLoading = false; // Still hide the skeleton and show the broken image icon
+    };
+  });
 </script>
 
 <section
@@ -53,7 +53,7 @@
     <div class="space-y-8">
       <!-- Profile Image -->
       <div
-        class="profile-image-container mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-2xl"
+        class="mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-2xl"
       >
         {#if isImageLoading}
           <div class="skeleton-box w-full h-full"></div>
@@ -118,10 +118,3 @@
     </div>
   </div>
 </section>
-<style>
-  .profile-image-container :global(.skeleton-box) {
-    width: 100%;
-    height: 100%;
-    /* border-radius: 100%; */
-  }
-</style>

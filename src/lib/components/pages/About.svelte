@@ -2,6 +2,22 @@
 	import Card from '../ui/Card.svelte';
 	import { User, Calendar, MapPin, Mail } from 'lucide-svelte';
 	import profilePic from '$lib/assets/profile.png';
+	import { onMount } from 'svelte';
+  let isImageLoading = $state(true);
+
+  onMount(() => {
+    const img = new Image();
+    img.src = profilePic;
+
+    img.onload = () => {
+      isImageLoading = false;
+    };
+
+    img.onerror = () => {
+      console.error('Profile picture failed to load.');
+      isImageLoading = false;
+    };
+  });
 </script>
 
 <section id="about" class="py-20 bg-gray-50">
@@ -57,11 +73,17 @@
 				<!-- Profile Image -->
 				<div class="relative">
 					<div class="w-80 h-80 mx-auto rounded-2xl overflow-hidden shadow-2xl">
-						<img 
-							src="{profilePic}" 
-							alt="About me" 
-							class="w-full h-full object-cover"
-						/>
+
+            {#if isImageLoading}
+              <div class="skeleton-box w-full h-full opacity-250 !bg-gray-200"></div>
+            {:else}
+              <img 
+                src="{profilePic}" 
+                alt="About me" 
+                class="w-full h-full object-cover"
+              />
+            {/if}
+
 					</div>
 					<!-- Decorative Elements -->
 					<div class="absolute -top-4 -right-4 w-8 h-8 bg-primary rounded-full"></div>

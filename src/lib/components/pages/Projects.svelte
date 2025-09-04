@@ -29,7 +29,7 @@
 		<div class="flex flex-wrap justify-center gap-4 mb-12">
 			{#each filters as filter}
 				<button
-					on:click={() => activeFilter = filter}
+					onclick={() => activeFilter = filter}
 					class="px-6 py-2 rounded-full font-medium transition-all duration-300
 						{activeFilter === filter 
 							? 'bg-primary text-white shadow-lg' 
