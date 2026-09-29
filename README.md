@@ -1,38 +1,37 @@
-# sv
+# Niño Abao — Developer Portfolio
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Personal portfolio for Niño Abao, web developer and IT instructor in Cebu, Philippines.
 
-## Creating a project
+**Live site:** https://oninsan.github.io/DevPortfolio/
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Development
 
-```sh
-# create a new project in the current directory
-npx sv create
-
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Use Node.js 22.12 or newer.
 
 ```sh
+npm ci
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
-
-To create a production version of your app:
+## Quality checks and production build
 
 ```sh
-npm run build
+npm run check
+BASE_PATH=/DevPortfolio npm run build
+npm run preview
 ```
 
-You can preview the production build with `npm run preview`.
+Visit `/DevPortfolio/` when previewing a build with the Pages base path.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## GitHub Pages
+
+The deployment workflow checks the project, builds a fully prerendered site with the `/DevPortfolio` base path, and publishes the `build` directory. Pushes to `main` deploy automatically; it can also be run manually from GitHub Actions. Pages must use **GitHub Actions** as its source, with the custom domain field empty.
+
+## Updating content
+
+- Projects: `src/lib/data/project.ts`. Omit `liveUrl` or `githubUrl` when no public destination exists.
+- Skills: `src/lib/data/skills.ts` and `src/lib/data/skillCategory.ts`.
+- Bio, contact details, and page sections: `src/lib/components/pages/`.
+- Visual styles: `src/app.css`.
+
+The contact form opens a prefilled draft in the visitor’s email app. Visitors send it there; the site does not claim to deliver messages or store submissions.

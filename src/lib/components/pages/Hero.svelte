@@ -1,120 +1,58 @@
 <script lang="ts">
-  import { ChevronDown } from 'lucide-svelte';
-  import profilePic from '$lib/assets/profile.png';
-  import { onMount } from 'svelte';
-  // import {Skeleton} from 'svelte-skeleton-loader';
-
-  let isImageLoading = $state(true);
-
-
-  const scrollToAbout = () => {
-    const element = document.getElementById('about');
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const scrollToSection = (href: string) => {
-    const targetId = href.substring(1);
-    const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  onMount(() => {
-    const img = new Image();
-    img.src = profilePic;
-
-    img.onload = () => {
-      isImageLoading = false;
-    };
-
-    img.onerror = () => {
-      console.error('Profile picture failed to load.');
-      isImageLoading = false; // Still hide the skeleton and show the broken image icon
-    };
-  });
+	import { Github, Linkedin, MapPin } from 'lucide-svelte';
+	import profilePic from '$lib/assets/profile.webp';
 </script>
 
-<section
-  id="home"
-  class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 to-purple-700 text-white relative overflow-hidden"
->
-  <!-- Background Pattern -->
-  <div class="absolute inset-0 opacity-10">
-    <div
-      class="absolute inset-0"
-      style="background-image: url(&quot;data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E&quot;);"
-    ></div>
-  </div>
-
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-    <div class="space-y-8">
-      <!-- Profile Image -->
-      <div
-        class="mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-2xl"
-      >
-        {#if isImageLoading}
-          <div class="skeleton-box w-full h-full"></div>
-        {:else}
-          <img
-            src={profilePic}
-            alt="Profile"
-            class="w-full h-full object-cover"
-          />
-        {/if}
-      </div>
-
-      <!-- Main Content -->
-      <div class="space-y-6">
-        <h1 class="text-5xl md:text-7xl font-bold leading-tight">
-          Hi, I'm <span class="text-primary">Niño Abao</span>
-        </h1>
-
-        <p class="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto">
-          A passionate web developer and an IT Instructor, creating amazing
-          digital experiences
-        </p>
-
-        <p
-          class="text-lg text-blue-200 max-w-2xl mx-auto leading-relaxed"
-        >
-          I love building modern, responsive websites and web applications using
-          the latest technologies. Let's bring your ideas to life!
-        </p>
-      </div>
-
-      <!-- CTA Buttons -->
-      <div
-        class="flex flex-col sm:flex-row gap-4 justify-center items-center pt-8"
-      >
-        <button
-          onclick={scrollToAbout}
-          class="bg-primary hover:bg-primary/90 text-white px-8 py-3 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-        >
-          Learn More About Me
-        </button>
-
-        <button
-          onclick={() => scrollToSection('#contact')}
-          class="border-2 border-white text-white hover:bg-white hover:text-blue-600 px-8 py-3 rounded-full text-lg font-semibold transition-all duration-300 transform hover:-translate-y-1"
-        >
-          Get In Touch
-        </button>
-      </div>
-    </div>
-
-    <!-- Scroll Indicator -->
-    <div
-      class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
-    >
-      <button
-        onclick={scrollToAbout}
-        class="text-white hover:text-primary transition-colors duration-200"
-      >
-        <ChevronDown class="h-8 w-8" />
-      </button>
-    </div>
-  </div>
+<section id="home" class="hero shell" aria-labelledby="hero-title">
+	<div class="hero-copy">
+		<p class="eyebrow"><span class="small-line"></span> Hi, I’m Niño Abao</p>
+		<h1 id="hero-title">Thoughtful code.<br /><span>Useful things.</span></h1>
+		<p class="hero-description">
+			Web developer and IT instructor. I build practical digital experiences and help others find
+			their footing in code.
+		</p>
+		<div class="hero-actions">
+			<a class="button button-primary" href="#projects">Explore my work</a>
+			<a class="button button-secondary" href="#contact">Get in touch</a>
+		</div>
+		<div class="hero-meta">
+			<span><MapPin size={15} /> Cebu, Philippines</span>
+			<div class="social-links">
+				<a
+					href="https://github.com/oninsan"
+					target="_blank"
+					rel="noreferrer"
+					aria-label="Niño Abao on GitHub"><Github size={19} /></a
+				>
+				<a
+					href="https://www.linkedin.com/in/ni%C3%B1o-abao-415124185/"
+					target="_blank"
+					rel="noreferrer"
+					aria-label="Niño Abao on LinkedIn"><Linkedin size={19} /></a
+				>
+			</div>
+		</div>
+	</div>
+	<div class="portrait-wrap">
+		<div class="portrait-frame">
+			<img
+				src={profilePic}
+				alt="Niño Abao, web developer and IT instructor"
+				width="850"
+				height="850"
+				fetchpriority="high"
+			/>
+			<div class="portrait-caption">
+				<span class="mono">BUILD / TEACH / LEARN</span><span
+					>Always curious.<br />Always building.</span
+				>
+			</div>
+		</div>
+		<span class="portrait-label mono">A little code. A lot of curiosity.</span>
+	</div>
+	<div class="hero-bottom">
+		<span class="mono">WEB DEVELOPMENT & IT EDUCATION</span><a href="#projects"
+			>Scroll to discover <span aria-hidden="true">↓</span></a
+		>
+	</div>
 </section>

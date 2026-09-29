@@ -2,7 +2,8 @@ name: Deploy SvelteKit to GitHub Pages
 
 on:
   push:
-    branches: [main] # change this if your default branch is not "main"
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -29,13 +30,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check types and accessibility
+        run: npm run check
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
       - name: Build project
         run: npm run build
+        env:
+          BASE_PATH: /DevPortfolio
 
       - name: Upload build artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./build # 👈 the SvelteKit adapter-static output
+          path: ./build
 
   deploy:
     environment:

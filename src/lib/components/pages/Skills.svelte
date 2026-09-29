@@ -1,46 +1,31 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
-    import Badge from '../ui/Badge.svelte';
-    import Card from '../ui/Card.svelte';
-    import CardContent from '../ui/CardContent.svelte';
-    import CardHeader from '../ui/CardHeader.svelte';
-    import CardTitle from '../ui/CardTitle.svelte';
-    import { skills } from '$lib/data/skills';
-    import { skillCategories } from '$lib/data/skillCategory'; 
-    
+	import { skills } from '$lib/data/skills';
+	import { skillCategories } from '$lib/data/skillCategory';
+	import { Braces, Database, Wrench } from 'lucide-svelte';
+	const icons = [Braces, Database, Wrench];
 </script>
 
-<section id="skills" class="py-20">
-	<div class="container mx-auto px-4">
-		<div class="text-center mb-16">
-			<h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Skills & Technologies</h2>
-      <div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
-			<p class="text-xl text-muted-foreground max-w-2xl mx-auto">
-				Here are the technologies and tools I work with to bring ideas to life.
-			</p>
+<section id="skills" class="toolkit-section" aria-labelledby="skills-title">
+	<div class="shell section">
+		<div class="section-kicker">
+			<span class="mono">03 / THE TOOLKIT</span><span class="rule"></span>
 		</div>
-
-		<div class="grid md:grid-cols-3 gap-8">
-			{#each skillCategories as category (category.id)}
-				<Card className="border-none shadow-sm">
-					<CardHeader>
-						<CardTitle className="text-center">{category.title}</CardTitle>
-					</CardHeader>
-					<CardContent>
-						<div class="flex flex-wrap gap-2 justify-center">
-							{#each skills as skill (skill.id)}
-                {#if skill.category == category.title}
-                  <Badge 
-                    variant="secondary"
-                    className="text-sm py-1 px-3"
-                  >
-                    {skill.skill}
-                  </Badge>
-                {/if}
-							{/each}
-						</div>
-					</CardContent>
-				</Card>
+		<div class="section-heading">
+			<h2 id="skills-title">The tools behind<br />the things I build.</h2>
+			<p>From the interface to the database.<br />The right tool for the problem at hand.</p>
+		</div>
+		<div class="skills-grid">
+			{#each skillCategories as category, index (category.id)}
+				{@const Icon = icons[index]}
+				<article class="skill-card">
+					<div class="skill-card-top"><Icon size={23} /><span class="mono">0{index + 1}</span></div>
+					<h3>{category.title}</h3>
+					<div class="tags">
+						{#each skills.filter((skill) => skill.category === category.title) as skill (skill.id)}<span
+								>{skill.skill}</span
+							>{/each}
+					</div>
+				</article>
 			{/each}
 		</div>
 	</div>

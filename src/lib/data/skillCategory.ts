@@ -1,6 +1,6 @@
 export interface Skilltitle {
-	id: Number;
-	title: String;
+	id: number;
+	title: string;
 }
 
 export const skillCategories: Array<Skilltitle> = [
