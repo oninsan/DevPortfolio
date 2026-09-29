@@ -1,7 +1,7 @@
 export interface Skill {
-	id: Number;
-	skill: String;
-	category: String;
+	id: number;
+	skill: string;
+	category: string;
 }
 
 export const skills: Array<Skill> = [

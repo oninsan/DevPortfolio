@@ -4,27 +4,25 @@
 	import Skills from '$lib/components/pages/Skills.svelte';
 	import Projects from '$lib/components/pages/Projects.svelte';
 	import Contact from '$lib/components/pages/Contact.svelte';
-	import Footer from '$lib/components/pages/Footer.svelte';
+	const siteUrl = 'https://oninsan.github.io/DevPortfolio/';
 </script>
 
 <svelte:head>
-	<title>Portfolio - Web Developer</title>
-	<meta name="description" content="Professional web developer portfolio showcasing skills, projects, and experience in modern web development." />
-	<meta property="og:title" content="Niño Abao's Portfolio" />
-  <meta property="og:description" content="Explore Niño's work in IT education, web development, and design." />
-  <meta property="og:image" content="https://www.niñoabao.online/images/devPortfolio.png" />
-  <meta property="og:url" content="https://www.niñoabao.online" />
-  <meta property="og:type" content="website" />
+	<title>Niño Abao — Web Developer & IT Instructor</title>
+	<meta
+		name="description"
+		content="Niño Abao is a web developer and IT instructor in Cebu, Philippines. Explore practical web applications, projects, and the tools behind them."
+	/>
+	<meta name="theme-color" content="#141619" />
+	<link rel="canonical" href={siteUrl} />
+	<meta property="og:title" content="Niño Abao — Web Developer & IT Instructor" />
+	<meta
+		property="og:description"
+		content="Thoughtful code. Useful things. Web development, practical tools, and IT education from Cebu, Philippines."
+	/>
+	<meta property="og:url" content={siteUrl} />
+	<meta property="og:type" content="website" />
+	<meta property="og:locale" content="en_US" />
 </svelte:head>
 
-<div class="min-h-screen">
-	<!-- <Header /> -->
-	<main>
-		<Hero />
-		<About />
-		<Skills />
-		<Projects />
-		<Contact />
-	</main>
-	<!-- <Footer /> -->
-</div>
+<main id="main"><Hero /><Projects /><About /><Skills /><Contact /></main>

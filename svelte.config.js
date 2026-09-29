@@ -9,7 +9,7 @@ const config = {
 			fallback: '404.html'
 		}),
 		paths: {
-			base: ''
+			base: process.env.BASE_PATH ?? ''
 		},
 		prerender: {
 			crawl: true,
