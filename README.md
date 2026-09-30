@@ -4,6 +4,8 @@ Personal portfolio for Niño Abao, web developer and IT instructor in Cebu, Phil
 
 **Live site:** https://oninsan.github.io/DevPortfolio/
 
+**Project stories:** https://oninsan.github.io/DevPortfolio/work/
+
 ## Development
 
 Use Node.js 22.12 or newer.
@@ -29,7 +31,7 @@ The deployment workflow checks the project, builds a fully prerendered site with
 
 ## Updating content
 
-- Projects: `src/lib/data/project.ts`. Omit `liveUrl` or `githubUrl` when no public destination exists.
+- Projects and case stories: `src/lib/data/project.ts`. Each featured project has a public source link; add a `liveUrl` only when there is a working public preview.
 - Skills: `src/lib/data/skills.ts` and `src/lib/data/skillCategory.ts`.
 - Bio, contact details, and page sections: `src/lib/components/pages/`.
 - Visual styles: `src/app.css`.

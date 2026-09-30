@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { Menu, X } from 'lucide-svelte';
+	import { base } from '$app/paths';
 	let menuOpen = $state(false);
 	const links = [
-		{ href: '#projects', label: 'Work' },
-		{ href: '#about', label: 'About' },
-		{ href: '#skills', label: 'Toolkit' },
-		{ href: '#contact', label: 'Contact' }
+		{ href: `${base}/#projects`, label: 'Work' },
+		{ href: `${base}/#about`, label: 'About' },
+		{ href: `${base}/#skills`, label: 'Toolkit' },
+		{ href: `${base}/#contact`, label: 'Contact' }
 	];
 </script>
 
@@ -17,7 +18,7 @@
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="site-header">
 	<nav class="shell nav" aria-label="Main navigation">
-		<a href="#home" class="brand" aria-label="Niño Abao — home">
+		<a href={`${base}/#home`} class="brand" aria-label="Niño Abao — home">
 			<span class="brand-mark" aria-hidden="true">n<span>.</span></span>
 			<span>Niño Abao<span class="brand-sub">Developer & instructor</span></span>
 		</a>
