@@ -23,8 +23,14 @@
 		</p>
 	</div>
 	<div class="projects-grid">
-		{#each projects as project (project.id)}
-			<article class="project-card" use:reveal use:tilt onpointerenter={accent}>
+		{#each projects as project, index (project.id)}
+			<article
+				class="project-card"
+				use:reveal
+				use:tilt
+				onpointerenter={accent}
+				style={`--reveal-delay:${(index % 2) * 130}ms`}
+			>
 				<div class="project-card-top">
 					<span class="mono">PROJECT / 0{project.id}</span><span class="mono"
 						>{project.category}</span

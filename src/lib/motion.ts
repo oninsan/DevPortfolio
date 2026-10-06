@@ -46,3 +46,30 @@ export function tilt(node: HTMLElement) {
 		}
 	};
 }
+
+export function magnetic(node: HTMLElement) {
+	if (typeof window === 'undefined') return;
+	const hover = window.matchMedia('(hover: hover) and (pointer: fine)');
+	const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+	if (!hover.matches || reduced.matches) return;
+
+	const move = (event: PointerEvent) => {
+		const bounds = node.getBoundingClientRect();
+		const x = event.clientX - (bounds.left + bounds.width / 2);
+		const y = event.clientY - (bounds.top + bounds.height / 2);
+		node.style.setProperty('--magnet-x', `${(x * 0.13).toFixed(1)}px`);
+		node.style.setProperty('--magnet-y', `${(y * 0.17).toFixed(1)}px`);
+	};
+	const reset = () => {
+		node.style.setProperty('--magnet-x', '0px');
+		node.style.setProperty('--magnet-y', '0px');
+	};
+	node.addEventListener('pointermove', move);
+	node.addEventListener('pointerleave', reset);
+	return {
+		destroy: () => {
+			node.removeEventListener('pointermove', move);
+			node.removeEventListener('pointerleave', reset);
+		}
+	};
+}
