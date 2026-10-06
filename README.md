@@ -36,4 +36,6 @@ The deployment workflow checks the project, builds a fully prerendered site with
 - Bio, contact details, and page sections: `src/lib/components/pages/`.
 - Visual styles: `src/app.css`.
 
+The portfolio uses scroll reveals, subtle card tilt, and a decorative marquee. Visitors who prefer reduced motion get a still version. The sound toggle starts muted and generates a quiet ambient sequence with the Web Audio API after a visitor turns it on; no audio file or external service is required.
+
 The contact form opens a prefilled draft in the visitor’s email app. Visitors send it there; the site does not claim to deliver messages or store submissions.

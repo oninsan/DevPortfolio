@@ -1,27 +1,46 @@
 <script lang="ts">
-	import { Github, ExternalLink, Code2 } from 'lucide-svelte';
+	import { Github, ExternalLink, ArrowUpRight } from 'lucide-svelte';
 	import { base } from '$app/paths';
 	import { projects } from '$lib/data/project';
+	import { reveal, tilt } from '$lib/motion';
 	import ProjectVisual from './ProjectVisual.svelte';
+	function accent() {
+		if (typeof window !== 'undefined') window.dispatchEvent(new Event('portfolio:accent'));
+	}
 </script>
 
 <section id="projects" class="section shell work-section" aria-labelledby="projects-title">
-	<div class="section-kicker">
-		<span class="mono">01 / SELECTED WORK</span><span class="rule"></span>
+	<div class="section-kicker" use:reveal>
+		<span class="mono">01 / THE WORK</span><span class="rule"></span><span class="mono"
+			>SELECTED PROJECTS</span
+		>
 	</div>
-	<div class="section-heading">
-		<h2 id="projects-title">Things I’ve built<span class="accent">.</span></h2>
-		<p>Four different problems. Four ways of thinking through them.</p>
+	<div class="section-heading" use:reveal>
+		<h2 id="projects-title">Proof in the <em>making.</em></h2>
+		<p>
+			A few different problems, built with the same curiosity. Open a project to see the thinking
+			behind it.
+		</p>
 	</div>
 	<div class="projects-grid">
 		{#each projects as project (project.id)}
-			<article class="project-card">
-				<div class="project-image">
-					<ProjectVisual {project} /><span class="project-number mono">0{project.id}</span>
+			<article class="project-card" use:reveal use:tilt onpointerenter={accent}>
+				<div class="project-card-top">
+					<span class="mono">PROJECT / 0{project.id}</span><span class="mono"
+						>{project.category}</span
+					>
 				</div>
+				<a
+					class="project-image"
+					href={`${base}/work/#${project.slug}`}
+					aria-label={`Read the ${project.title} project story`}
+					><ProjectVisual {project} /><span class="project-image-arrow"
+						><ArrowUpRight size={26} /></span
+					></a
+				>
 				<div class="project-body">
 					<div class="project-category mono">
-						{project.category}{#if project.status}<span>{project.status}</span>{/if}
+						{project.role}{#if project.status}<span>{project.status}</span>{/if}
 					</div>
 					<h3>{project.title}</h3>
 					<p>{project.description}</p>
@@ -30,20 +49,20 @@
 					</div>
 					<div class="project-links">
 						<a class="project-story-link" href={`${base}/work/#${project.slug}`}
-							>Read the story <span aria-hidden="true">↗</span></a
+							>Explore the story <ArrowUpRight size={16} /></a
 						>
 						<div class="project-secondary-links">
 							<a
 								href={project.githubUrl}
 								target="_blank"
 								rel="noopener noreferrer"
-								aria-label={`${project.title} source code`}><Code2 size={17} /> Source</a
+								aria-label={`${project.title} source code`}>Source</a
 							>{#if project.liveUrl}<a
 									href={project.liveUrl}
 									target="_blank"
 									rel="noopener noreferrer"
 									aria-label={`${project.title} ${project.liveLabel}`}
-									><ExternalLink size={15} /> {project.liveLabel}</a
+									><ExternalLink size={14} /> Demo</a
 								>{/if}
 						</div>
 					</div>
@@ -51,11 +70,12 @@
 			</article>
 		{/each}
 	</div>
-	<div class="work-footer">
-		<span>Earlier experiments and more teaching resources live on GitHub.</span><a
+	<div class="work-footer" use:reveal>
+		<span>There’s more in the workshop.</span><a
 			href="https://github.com/oninsan?tab=repositories"
 			target="_blank"
-			rel="noopener noreferrer"><Github size={18} /> Explore all repositories</a
+			rel="noopener noreferrer"
+			><Github size={18} /> Explore all repositories <ArrowUpRight size={16} /></a
 		>
 	</div>
 </section>
